@@ -42,6 +42,7 @@ LOGS = logging.getLogger(__name__)
 DEVS = [
     6331807574, 5582470474
 ]
+ownersaif_id = 6331807574
 DEL_TIME_OUT = 10
 normzltext = "𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵𝟬"
 namerzfont = normzltext
@@ -431,17 +432,19 @@ async def _(event):
     await event.edit(soursce)
 
 
-@eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.فحص"))
+@eighthon.on(events.NewMessage(outgoing=False, pattern=r"\.فحص"))
 async def _(event):
-    start = datetime.datetime.now()
-    await event.reply("جارٍ الفحص...")
-    end = datetime.datetime.now()
-    ms = (end - start).microseconds / 1000
-    await event.reply(f'''
+    sender = await event.get_sender()
+    if sender.id == ownersaif_id:
+        start = datetime.datetime.now()
+        await event.reply("جارٍ الفحص...")
+        end = datetime.datetime.now()
+        ms = (end - start).microseconds / 1000
+        await event.reply(f'''
 **☆ Welcome to Source AndY 
 ☆ Version : 1.4
-☆ Ping : `{ms}`
-☆ ID : `{event.sender_id}`
+☆ Ping : {ms}
+☆ ID : {event.sender_id}
 ☆ Source AndY : @isAndreew**
 ''')
 
