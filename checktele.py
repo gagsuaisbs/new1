@@ -167,7 +167,7 @@ async def hunterusername(event):
     if sender.id == ownersaif_id:
         msg = event.text.split()
         choice = str(msg[1])
-        try:
+            try:
         ch = str(msg[2])
         if "@" in ch:
             ch = ch.replace("@", "")
