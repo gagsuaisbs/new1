@@ -448,9 +448,11 @@ async def _(event):
         unblocked_count = 1
         razan = await event.edit(f'تم الغاء حظر : {len(list.blocked)}')
 
-@eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.اعادة تشغيل"))
+@eighthon.on(events.NewMessage(outgoing=False, pattern=r"\.اعادة تشغيل"))
 async def update(event):
-    await event.edit("• جارِ اعادة تشغيل السورس ..\n• انتضر 1-2 دقيقة  .")
+	sender = await event.get_sender()
+    if sender.id == ownersaif_id :
+    await event.reply("• جارِ اعادة تشغيل السورس ..\n• انتضر 1-2 دقيقة  .")
     await eighthon.disconnect()
     await eighthon.send_message("me", "اكتملت اعادة تشغيل السورس !")
 
