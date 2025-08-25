@@ -103,7 +103,7 @@ def gen_user(choice):
         c = random.choices(a)
         d = random.choices(e)
         s = random.choices(e)
-        f = [c[0], d[0], s[0], s[0], s[0], s[0], s[0]]
+        f = [c[0], d[0], s[0], s[0], d[0], s[0], s[0]]
         random.shuffle(f)
         username = "".join(f)
     else:
