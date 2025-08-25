@@ -112,11 +112,11 @@ def gen_user(choice):
     return username
 
 
-@eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.الصيد"))
+@eighthon.on(events.NewMessage(outgoing=False, pattern=r"\.الصيد"))
 async def _(event):
-	sender = await event.get_sender()
+    sender = await event.get_sender()
     if sender.id == ownersaif_id:
-    await event.reply(
+        await event.reply(
         '''
 **-- -- -- -- -- -- -- -- --
  الانواع :
