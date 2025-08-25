@@ -13,7 +13,7 @@ import queue
 
 # استيراد المتغيرات الأساسية من config و help
 from config import eighthon, ownersaif_id, ispay2
-from help import tele_checker2
+from help import tele_checker
 
 a = 'qwertyuiopassdfghjklzxcvbnm'
 b = '1234567890'
@@ -153,7 +153,7 @@ async def _(event):
     sender = await event.get_sender()
     if sender.id == ownersaif_id:
         if ispay2[0] == "yes":
-            await event.reply(tele_checker2)
+            await event.reply(tele_checker)
         else:
             await event.reply("يجب الدفع لاستعمال هذا الامر !")
 

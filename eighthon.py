@@ -25,7 +25,7 @@ import queue
 
 # استيراد المتغيرات والدوال من الملفات الأخرى
 from config import eighthon, ownersaif_id, bot, ispay, ispay2, API_ID, API_HASH, BOT_USERNAME, session, token
-from help import soursce, commands, sec1, sec2, sec3, sec4, sec5, spc, spc2, tele_checker2, tele_checker
+from help import soursce, commands, sec1, sec2, sec3, sec4, sec5, spc, spc2, tele_checker
 from checktele import check_user, gen_user, isclaim, isauto, trys, trys2, que
 
 # -
@@ -41,7 +41,6 @@ async def join_channel():
 a = 'qwertyuiopassdfghjklzxcvbnm'
 b = '1234567890'
 e = 'qwertyuiopassdfghjklzxcvbnm1234567890'
-ownersaif_id = 6331807574
 
 banned = []
 try:
@@ -423,7 +422,6 @@ async def _(event):
 -- -- -- -- -- -- -- -- -- --"""
                      )
 
-ownerbaqer_id = 6331807574
 @eighthon.on(events.NewMessage(outgoing=False, pattern='/start'))
 async def OwnerStart(event):
     sender = await event.get_sender()
@@ -433,7 +431,7 @@ async def OwnerStart(event):
 @eighthon.on(events.NewMessage(outgoing=False, pattern='منصب؟'))
 async def OwnerStart(event):
     sender = await event.get_sender()
-    if sender.id == ownerbaqer_id :
+    if sender.id == ownersaif_id :
         order = await event.reply(' Hi MY Developer - @isAndreew')
 
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.فك حظر"))
