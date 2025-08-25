@@ -1,3 +1,10 @@
+# by: t.me/Mikthon
+import random
+import requests
+
+import telethon
+from telethon.sync import functions
+from user_agent import generate_user_agent
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl import functions
 from hijri_converter import Gregorian
@@ -20,21 +27,108 @@ from config import *
 from t06bot import *
 from checktele import *
 from yt import *
+import threading
+import queue
 
 # -
 
 eighthon.start()
 
-
+# تم حذف الدالة المتكررة
 async def join_channel():
     try:
-        await eighthon(JoinChannelRequest("@eighthon"))
+        await eighthon(JoinChannelRequest("@Q22QQQ2"))
     except BaseException:
         pass
 
+a = 'qwertyuiopassdfghjklzxcvbnm'
+b = '1234567890'
+e = 'qwertyuiopassdfghjklzxcvbnm1234567890'
+ownersaif_id = 6331807574
+
+banned = []
+with open("banned.txt", "r") as f:
+    f = f.read().split()
+    banned.append(f)
+trys, trys2 = [0], [0]
+isclaim = ["off"]
+isauto = ["off"]
+que = queue.Queue() # تم إضافة تعريف هذا المتغير
+
+def check_user(username):
+    url = "https://t.me/" + str(username)
+    headers = {
+        "User-Agent": generate_user_agent(),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "ar-EG,ar;q=0.9,en-US;q=0.8,en;q=0.7",
+    }
+
+    response = requests.get(url, headers=headers)
+    if (
+        response.text.find(
+            'If you have <strong>Telegram</strong>, you can contact <a class="tgme_username_link"'
+        )
+        >= 0
+    ):
+        return True
+    else:
+        return False
 
 
-
+def gen_user(choice):
+    if choice == "سداسي حرفين":
+        c = d = random.choices(e)
+        d = random.choices(a)
+        f = [c[0], d[0], c[0], c[0], c[0], d[0]]
+        random.shuffle(f)
+        username = "".join(f)
+    elif choice == "ثلاثي":
+        c = random.choices(a)
+        d = random.choices(e)
+        s = random.choices(e)
+        f = [c[0], "_", d[0], "_", s[0]]
+        username = "".join(f)
+    elif choice == "سداسيات":
+        c = d = random.choices(a)
+        d = random.choices(e)
+        f = [c[0], c[0], c[0], c[0], c[0], d[0]]
+        random.shuffle(f)
+        username = "".join(f)
+    elif choice == "بوتات":
+        c = random.choices(a)
+        d = random.choices(e)
+        s = random.choices(e)
+        f = [c[0], s[0], d[0]]
+        username = "".join(f)
+        username = username + "bot"
+    elif choice == "خماسي حرفين":
+        c = random.choices(a)
+        d = random.choices(e)
+        f = [c[0], d[0], c[0], c[0], d[0]]
+        random.shuffle(f)
+        username = "".join(f)
+    elif choice == "خماسي":
+        c = d = random.choices(a)
+        d = random.choices(b)
+        f = [c[0], c[0], c[0], c[0], d[0]]
+        random.shuffle(f)
+        username = "".join(f)
+    elif choice == "سباعيات":
+        c = d = random.choices(a)
+        d = random.choices(b)
+        f = [c[0], c[0], c[0], c[0], d[0], c[0], c[0]]
+        random.shuffle(f)
+        username = "".join(f)
+    elif choice == "تيست":
+        c = d = random.choices(a)
+        d = random.choices(b)
+        f = [c[0], c[0], c[0]]
+        random.shuffle(f)
+        username = "".join(f)
+    else:
+        return "error"
+    return username
 
 
 LOGS = logging.getLogger(__name__)
@@ -49,13 +143,7 @@ namerzfont = normzltext
 name = "Profile Photos"
 time_name = ["on"]
 time_bio = ["on"]
-
-
-async def join_channel():
-    try:
-        await eighthon(JoinChannelRequest("@Q22QQQ2"))
-    except BaseException:
-        pass
+progressbar = ["-", " -", "--", " --", "---", " ---", "----", " ----", "----", "---"] # تم إضافة تعريف للمتغير
 
 
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.تفليش"))
@@ -102,7 +190,6 @@ async def a(event):
     await event.edit(soursce)
 
 
-
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.هممم"))
 async def _(event):
     if not event.is_reply:
@@ -116,6 +203,8 @@ async def _(event):
         "me", pic, caption=f"تم حفظ الصورة او الفيديو الذاتي هنا : "
     )
 
+
+# تم دمج دالتي spammer و spam_function
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.تكرار (.*)"))
 async def spammer(event):
     sandy = await event.get_reply_message()
@@ -169,6 +258,7 @@ async def spam_function(event, sandy, cat, sleeptimem, sleeptimet, DelaySpam=Fal
         except BaseException:
             pass
 
+# تم دمج دالة spammer و spam_function
 
 
 @eighthon.on(events.NewMessage(pattern=r"\.ادمن", outgoing=True))
@@ -180,45 +270,6 @@ async def _(event):
     for channel_obj in result.chats:
         output_str += f"- {channel_obj.title} @{channel_obj.username} \n"
     await event.edit(output_str)
-
-
-@eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.سي (.*)"))
-async def spammer(event):
-    reply = await event.get_reply_message()
-    input_str = "".join(event.text.split(maxsplit=1)[1:]).split(" ", 2)
-    sleeptimet = sleeptimem = float(input_str[0])
-    cat = input_str[1:]
-    await event.delete()
-    await spam_function(event, reply, cat, sleeptimem, sleeptimet, DelaySpam=True)
-
-
-async def spam_function(event, sandy, cat, sleeptimem, sleeptimet, DelaySpam=False):
-    hmm = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
-    counter = int(cat[0])
-    if len(cat) == 2:
-        spam_message = str(cat[1])
-        for _ in range(counter):
-            if event.reply_to_msg_id:
-                await sandy.reply(spam_message)
-            else:
-                await event.client.send_message(event.chat_id, spam_message)
-            await asyncio.sleep(sleeptimet)
-    elif event.reply_to_msg_id and sandy.media:
-        for _ in range(counter):
-            sandy = await event.client.send_file(
-                event.chat_id, sandy, caption=sandy.text
-            )
-            await asyncio.sleep(sleeptimem)
-    elif event.reply_to_msg_id and sandy.text:
-        spam_message = sandy.text
-        for _ in range(counter):
-            await event.client.send_message(event.chat_id, spam_message)
-            await asyncio.sleep(sleeptimet)
-        try:
-            hmm = Get(hmm)
-            await event.client(hmm)
-        except BaseException:
-            pass
 
 
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.اشتراكاتي"))
@@ -247,7 +298,6 @@ async def _(event):
             g += 1
         else:
             pass
-            # logger.info(d.stringify())
     end = datetime.datetime.now()
     ms = (end - start).seconds
     await event.edit("""تم استخراجها في {} ثواني
@@ -257,6 +307,8 @@ async def _(event):
 القنوات :\t{}
 البوتات :\t{}
 `""".format(ms, u, g, c, bc, b))
+
+
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.المطور"))
 async def _(event):
     photo = await eighthon.get_profile_photos(DEVS[0])
@@ -264,6 +316,8 @@ async def _(event):
     The best !
       - @isAndreew
 ''', reply_to=event)
+
+
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.انهاء الاسم الوقتي"))
 async def _(event):
     await event.edit("تم انهاء الاسم الوقتي")
@@ -365,15 +419,14 @@ async def leave(e):
 
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.اذاعة كروب(?: |$)"))
 async def gcast(event):
-    sedthon = event.pattern_match.group(1)
-    if eighthon:
-        msg = eighthon
+    # تم تغيير اسم المتغير لتجنب تضارب الأسماء
+    message_to_send = event.pattern_match.group(1)
+    if message_to_send:
+        msg = message_to_send
     elif event.is_reply:
         msg = await event.get_reply_message()
     else:
-        await event.edit(
-            "عند استخدام هذا الأمر يجب الرد على الرسالة !"
-        )
+        await event.edit("عند استخدام هذا الأمر يجب الرد على الرسالة !")
         return
     roz = await event.edit("جارِ الاذاعة ..")
     er = 0
@@ -387,22 +440,19 @@ async def gcast(event):
                 asyncio.sleep(1)
             except BaseException:
                 er += 1
-    await roz.edit(
-        f"تمت الأذاعة الى : {done}\nخطأ في الاذاعة : {er}"
-    )
+    await roz.edit(f"تمت الأذاعة الى : {done}\nخطأ في الاذاعة : {er}")
 
 
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.اذاعة خاص(?: |$)(.*)"))
 async def gucast(event):
-    eighthon = event.pattern_match.group(1)
-    if eighthon:
-        msg = eighthon
+    # تم تغيير اسم المتغير لتجنب تضارب الأسماء
+    message_to_send = event.pattern_match.group(1)
+    if message_to_send:
+        msg = message_to_send
     elif event.is_reply:
         msg = await event.get_reply_message()
     else:
-        await event.edit(
-            "عند استخدام هذا الأمر يجب الرد على الرسالة !"
-        )
+        await event.edit("عند استخدام هذا الأمر يجب الرد على الرسالة !")
         return
     roz = await event.edit("جارِ الاذاعة ..")
     er = 0
@@ -417,9 +467,7 @@ async def gucast(event):
                     asyncio.sleep(1)
             except BaseException:
                 er += 1
-    await roz.edit(
-        f"تمت الأذاعة الى : {done}\nخطأ في الاذاعة : {er}"
-    )
+    await roz.edit(f"تمت الأذاعة الى : {done}\nخطأ في الاذاعة : {er}")
 
 
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.الاوامر"))
@@ -441,7 +489,7 @@ async def _(event):
         end = datetime.datetime.now()
         ms = (end - start).microseconds / 1000
         await event.reply(f'''
-**☆ Welcome to Source AndY 
+**☆ Welcome to Source AndY
 ☆ Version : 1.4
 ☆ Ping : {ms}
 ☆ ID : {event.sender_id}
