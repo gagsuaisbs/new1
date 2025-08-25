@@ -19,6 +19,7 @@ from telethon import events
 a = 'qwertyuiopassdfghjklzxcvbnm'
 b = '1234567890'
 e = 'qwertyuiopassdfghjklzxcvbnm1234567890'
+ownersaif_id = 6331807574
 
 banned = []
 with open("banned.txt", "r") as f:
@@ -113,7 +114,9 @@ def gen_user(choice):
 
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.الصيد"))
 async def _(event):
-    await event.edit(
+	sender = await event.get_sender()
+    if sender.id == ownersaif_id:
+    await event.reply(
         '''
 **-- -- -- -- -- -- -- -- --
  الانواع :
