@@ -152,22 +152,26 @@ async def _(event):
 '''
     )
 
-@eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.الانواع"))
+@eighthon.on(events.NewMessage(outgoing=False, pattern=r"\.الانواع"))
 async def _(event):
-    if ispay2[0] == "yes":
-        await event.edit(tele_checker2)
-    else:
-        await event.edit("يجب الدفع لاستعمال هذا الامر !")
+    sender = await event.get_sender()
+    if sender.id == ownersaif_id:
+        if ispay2[0] == "yes":
+            await event.reply(tele_checker2)
+        else:
+            await event.reply("يجب الدفع لاستعمال هذا الامر !")
 
-@eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.صيد"))
+@eighthon.on(events.NewMessage(outgoing=False, pattern=r"\.صيد"))
 async def hunterusername(event):
-    msg = event.text.split()
-    choice = str(msg[1])
-    try:
+    sender = await event.get_sender()
+    if sender.id == ownersaif_id:
+        msg = event.text.split()
+        choice = str(msg[1])
+        try:
         ch = str(msg[2])
         if "@" in ch:
             ch = ch.replace("@", "")
-        await event.edit(f"حسناً سيتم بدء الصيد في @{ch} .")
+        await event.reply(f"حسناً سيتم بدء الصيد في @{ch} .")
     except:
         try:
             ch = await eighthon(
@@ -177,7 +181,7 @@ async def hunterusername(event):
                 )
             )
             ch = ch.updates[1].channel_id
-            await event.edit(f"**تم انشاء القناة بنجاح .. سيتم صيد نوع {choice} !**")
+            await event.reply(f"**تم انشاء القناة بنجاح .. سيتم صيد نوع {choice} !**")
         except Exception as e:
             await eighthon.send_message(
                 event.chat_id, f"خطأ في انشاء القناة , الخطأ**-  : {str(e)}**"
@@ -187,7 +191,7 @@ async def hunterusername(event):
     for i in range(19000000):
         username = gen_user(choice)
         if username == "error":
-            await event.edit("** يرجى وضع النوع بشكل صحيح**.")
+            await event.reply("** يرجى وضع النوع بشكل صحيح**.")
             break
         isav = check_user(username)
         if isav == True:
@@ -237,7 +241,7 @@ async def _(event):
     msg = event.text.split()
     try:
         ch = str(msg[2])
-        await event.edit(f"حسناً سيتم بدء التثبيت في**-  @{ch} .**")
+        await event.reply(f"حسناً سيتم بدء التثبيت في**-  @{ch} .**")
     except:
         try:
             ch = await eighthon(
@@ -247,7 +251,7 @@ async def _(event):
                 )
             )
             ch = ch.updates[1].channel_id
-            await event.edit(f"**- تم بنجاح بدأ التثبيت**")
+            await event.reply(f"**- تم بنجاح بدأ التثبيت**")
         except Exception as e:
             await eighthon.send_message(
                 event.chat_id, f"خطأ في انشاء القناة , الخطأ : {str(e)}"
@@ -296,24 +300,26 @@ async def _(event):
     await eighthon.send_message(event.chat_id, "**- تم الانتهاء من التثبيت بنجاح**")
 
 
-@eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.حالة الصيد"))
+@eighthon.on(events.NewMessage(outgoing=False, pattern=r"\.حالة الصيد"))
 async def _(event):
-    if "on" in isclaim:
-        await event.edit(f"** الصيد وصل لـ({trys[0]}) من المحاولات**")
-    elif "off" in isclaim:
-        await event.edit("** الصيد  لا يعمل .**")
-    else:
-        await event.edit("- لقد حدث خطأ ما وتوقف الامر لديك")
+    sender = await event.get_sender()
+    if sender.id == ownersaif_id:
+        if "on" in isclaim:
+            await event.reply(f"** الصيد وصل لـ({trys[0]}) من المحاولات**")
+        elif "off" in isclaim:
+            await event.reply("** الصيد  لا يعمل .**")
+        else:
+            await event.reply("- لقد حدث خطأ ما وتوقف الامر لديك")
 
 
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.حالة التثبيت"))
 async def _(event):
     if "on" in isauto:
-        await event.edit(f"**- التثبيت وصل لـ({trys2[0]}) من المحاولات**")
+        await event.reply(f"**- التثبيت وصل لـ({trys2[0]}) من المحاولات**")
     elif "off" in isauto:
-        await event.edit("**- التثبيت بالاصل لا يعمل .**")
+        await event.reply("**- التثبيت بالاصل لا يعمل .**")
     else:
-        await event.edit("-لقد حدث خطأ ما وتوقف الامر لديك")
+        await event.reply("-لقد حدث خطأ ما وتوقف الامر لديك")
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.ت (.*)"))
 async def _(event):
     if ispay2[0] == "yes":
@@ -325,16 +331,16 @@ async def _(event):
             msg = ("".join(event.text.split(maxsplit=2)[2:])).split(" ", 2)
             username = str(msg[2])
             ch = str(msg[1])
-            await event.edit(f"حسناً سأحاول تثبيت `{username}` على `{ch}` , بعدد `{msg[0]}` من المحاولات !")
+            await event.reply(f"حسناً سأحاول تثبيت `{username}` على `{ch}` , بعدد `{msg[0]}` من المحاولات !")
 
             @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.حالة ت "))
             async def _(event):
                 if "on" in isauto:
-                    msg = await event.edit(f"التثبيت وصل لـ({trys}) من المحاولات")
+                    msg = await event.reply(f"التثبيت وصل لـ({trys}) من المحاولات")
                 elif "off" in isauto:
-                    await event.edit("لايوجد تثبيت شغال !")
+                    await event.reply("لايوجد تثبيت شغال !")
                 else:
-                    await event.edit("خطأ")
+                    await event.reply("خطأ")
             for i in range(int(msg[0])):
                 if ispay2[0] == 'no':
                     break
@@ -375,7 +381,7 @@ async def _(event):
             isclaim.append("off")
             await eighthon.send_message(event.chat_id, "تم الانتهاء من التثبيت التلقائي")
         if msg[0] == "يدوي":  # تثبيت يدوي يوزر قناة
-            await event.edit(f"حسناً سأحاول تثبيت `{username}` على `{ch}` !")
+            await event.reply(f"حسناً سأحاول تثبيت `{username}` على `{ch}` !")
             msg = ("".join(event.text.split(maxsplit=1)[1:])).split(" ", 1)
             username = str(msg[0])
             ch = str(msg[1])
