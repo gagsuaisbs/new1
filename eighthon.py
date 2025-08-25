@@ -431,15 +431,13 @@ async def _(event):
     await event.edit(soursce)
 
 
-@eighthon.on(events.NewMessage(outgoing=False, pattern=r"\.فحص"))
+@eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.فحص"))
 async def _(event):
-	sender = await event.get_sender()
-    if sender.id == ownersaif_id :
-        start = datetime.datetime.now()
-        await event.reply("جارٍ الفحص...")
-        end = datetime.datetime.now()
-        ms = (end - start).microseconds / 1000
-        await event.reply(f'''
+    start = datetime.datetime.now()
+    await event.reply("جارٍ الفحص...")
+    end = datetime.datetime.now()
+    ms = (end - start).microseconds / 1000
+    await event.reply(f'''
 **☆ Welcome to Source AndY 
 ☆ Version : 1.4
 ☆ Ping : `{ms}`
