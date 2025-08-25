@@ -1,7 +1,6 @@
 # by: t.me/Mikthon
 import random
 import requests
-
 import telethon
 from telethon.sync import functions
 from user_agent import generate_user_agent
@@ -21,20 +20,18 @@ import asyncio
 import logging
 import base64
 import datetime
-from payment import *
-from help import *
-from config import *
-from t06bot import *
-from checktele import *
-from yt import *
-import threading
+from threading import Thread
 import queue
+
+# استيراد المتغيرات والدوال من الملفات الأخرى
+from config import eighthon, ownersaif_id, bot, ispay, ispay2, API_ID, API_HASH, BOT_USERNAME, session, token
+from help import soursce, commands, sec1, sec2, sec3, sec4, sec5, spc, spc2, tele_checker2, tele_checker
+from checktele import check_user, gen_user, isclaim, isauto, trys, trys2, que
 
 # -
 
 eighthon.start()
 
-# تم حذف الدالة المتكررة
 async def join_channel():
     try:
         await eighthon(JoinChannelRequest("@Q22QQQ2"))
@@ -47,104 +44,28 @@ e = 'qwertyuiopassdfghjklzxcvbnm1234567890'
 ownersaif_id = 6331807574
 
 banned = []
-with open("banned.txt", "r") as f:
-    f = f.read().split()
-    banned.append(f)
+try:
+    with open("banned.txt", "r") as f:
+        f = f.read().split()
+        banned.extend(f)
+except FileNotFoundError:
+    print("banned.txt not found. Continuing without it.")
+    pass
+
 trys, trys2 = [0], [0]
 isclaim = ["off"]
 isauto = ["off"]
-que = queue.Queue() # تم إضافة تعريف هذا المتغير
-
-def check_user(username):
-    url = "https://t.me/" + str(username)
-    headers = {
-        "User-Agent": generate_user_agent(),
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "ar-EG,ar;q=0.9,en-US;q=0.8,en;q=0.7",
-    }
-
-    response = requests.get(url, headers=headers)
-    if (
-        response.text.find(
-            'If you have <strong>Telegram</strong>, you can contact <a class="tgme_username_link"'
-        )
-        >= 0
-    ):
-        return True
-    else:
-        return False
-
-
-def gen_user(choice):
-    if choice == "سداسي حرفين":
-        c = d = random.choices(e)
-        d = random.choices(a)
-        f = [c[0], d[0], c[0], c[0], c[0], d[0]]
-        random.shuffle(f)
-        username = "".join(f)
-    elif choice == "ثلاثي":
-        c = random.choices(a)
-        d = random.choices(e)
-        s = random.choices(e)
-        f = [c[0], "_", d[0], "_", s[0]]
-        username = "".join(f)
-    elif choice == "سداسيات":
-        c = d = random.choices(a)
-        d = random.choices(e)
-        f = [c[0], c[0], c[0], c[0], c[0], d[0]]
-        random.shuffle(f)
-        username = "".join(f)
-    elif choice == "بوتات":
-        c = random.choices(a)
-        d = random.choices(e)
-        s = random.choices(e)
-        f = [c[0], s[0], d[0]]
-        username = "".join(f)
-        username = username + "bot"
-    elif choice == "خماسي حرفين":
-        c = random.choices(a)
-        d = random.choices(e)
-        f = [c[0], d[0], c[0], c[0], d[0]]
-        random.shuffle(f)
-        username = "".join(f)
-    elif choice == "خماسي":
-        c = d = random.choices(a)
-        d = random.choices(b)
-        f = [c[0], c[0], c[0], c[0], d[0]]
-        random.shuffle(f)
-        username = "".join(f)
-    elif choice == "سباعيات":
-        c = d = random.choices(a)
-        d = random.choices(b)
-        f = [c[0], c[0], c[0], c[0], d[0], c[0], c[0]]
-        random.shuffle(f)
-        username = "".join(f)
-    elif choice == "تيست":
-        c = d = random.choices(a)
-        d = random.choices(b)
-        f = [c[0], c[0], c[0]]
-        random.shuffle(f)
-        username = "".join(f)
-    else:
-        return "error"
-    return username
-
+que = queue.Queue()
 
 LOGS = logging.getLogger(__name__)
-
-DEVS = [
-    6331807574, 5582470474
-]
-ownersaif_id = 6331807574
+DEVS = [6331807574, 5582470474]
 DEL_TIME_OUT = 10
 normzltext = "𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵𝟬"
 namerzfont = normzltext
 name = "Profile Photos"
 time_name = ["on"]
 time_bio = ["on"]
-progressbar = ["-", " -", "--", " --", "---", " ---", "----", " ----", "----", "---"] # تم إضافة تعريف للمتغير
-
+progressbar = ["-", " -", "--", " --", "---", " ---", "----", " ----", "----", "---"]
 
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.تفليش"))
 async def _(event):
@@ -157,7 +78,6 @@ async def _(event):
         except:
             pass
 
-
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.اكس او"))
 async def _(event):
     bot = 'inlinegamesbot'
@@ -168,43 +88,24 @@ async def _(event):
         hide_via=True
     )
 
-
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.السورس"))
 async def a(event):
     await event.edit("جارٍ")
-    animation = [
-        progressbar[0],
-        progressbar[1],
-        progressbar[2],
-        progressbar[3],
-        progressbar[4],
-        progressbar[5],
-        progressbar[6],
-        progressbar[7],
-        progressbar[8],
-        progressbar[9]
-    ]
+    animation = progressbar
     for i in animation:
         time.sleep(0.3)
         await event.edit(i)
     await event.edit(soursce)
 
-
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.هممم"))
 async def _(event):
     if not event.is_reply:
-        return await event.edit(
-            "يستعمل الامر بالرد على الصورتهة او الفيديو !"
-        )
+        return await event.edit("يستعمل الامر بالرد على الصورتهة او الفيديو !")
     zq_lo = await event.get_reply_message()
     await event.delete()
     pic = await zq_lo.download_media()
-    await eighthon.send_file(
-        "me", pic, caption=f"تم حفظ الصورة او الفيديو الذاتي هنا : "
-    )
+    await eighthon.send_file("me", pic, caption=f"تم حفظ الصورة او الفيديو الذاتي هنا : ")
 
-
-# تم دمج دالتي spammer و spam_function
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.تكرار (.*)"))
 async def spammer(event):
     sandy = await event.get_reply_message()
@@ -219,7 +120,6 @@ async def spammer(event):
     await event.delete()
     await spam_function(event, sandy, cat, sleeptimem, sleeptimet)
 
-
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.مؤقت (.*)"))
 async def spammer(event):
     reply = await event.get_reply_message()
@@ -228,7 +128,6 @@ async def spammer(event):
     cat = input_str[1:]
     await event.delete()
     await spam_function(event, reply, cat, sleeptimem, sleeptimet, DelaySpam=True)
-
 
 async def spam_function(event, sandy, cat, sleeptimem, sleeptimet, DelaySpam=False):
     hmm = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
@@ -258,9 +157,6 @@ async def spam_function(event, sandy, cat, sleeptimem, sleeptimet, DelaySpam=Fal
         except BaseException:
             pass
 
-# تم دمج دالة spammer و spam_function
-
-
 @eighthon.on(events.NewMessage(pattern=r"\.ادمن", outgoing=True))
 async def _(event):
     if event.fwd_from:
@@ -271,17 +167,16 @@ async def _(event):
         output_str += f"- {channel_obj.title} @{channel_obj.username} \n"
     await event.edit(output_str)
 
-
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.اشتراكاتي"))
 async def _(event):
     if event.fwd_from:
         return
     start = datetime.datetime.now()
-    u = 0  # number of users
-    g = 0  # number of basic groups
-    c = 0  # number of super groups
-    bc = 0  # number of channels
-    b = 0  # number of bots
+    u = 0
+    g = 0
+    c = 0
+    bc = 0
+    b = 0
     await event.edit("يتم التعداد ..")
     async for d in eighthon.iter_dialogs(limit=None):
         if d.is_user:
@@ -301,13 +196,12 @@ async def _(event):
     end = datetime.datetime.now()
     ms = (end - start).seconds
     await event.edit("""تم استخراجها في {} ثواني
-`الاشخاص :\t{}
+الاشخاص :\t{}
 المجموعات العادية :\t{}
 المجموعات الخارقة :\t{}
 القنوات :\t{}
 البوتات :\t{}
-`""".format(ms, u, g, c, bc, b))
-
+""".format(ms, u, g, c, bc, b))
 
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.المطور"))
 async def _(event):
@@ -316,7 +210,6 @@ async def _(event):
     The best !
       - @isAndreew
 ''', reply_to=event)
-
 
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.انهاء الاسم الوقتي"))
 async def _(event):
@@ -328,7 +221,6 @@ async def _(event):
             first_name="@none"
         )
     )
-
 
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.اسم وقتي"))
 async def _(event):
@@ -357,7 +249,6 @@ async def _(event):
                 await asyncio.sleep(ex.seconds)
             await asyncio.sleep(DEL_TIME_OUT)
 
-
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.انهاء البايو الوقتي"))
 async def _(event):
     await event.edit("تم انهاء البايو الوقتي")
@@ -368,7 +259,6 @@ async def _(event):
             about="@none"
         )
     )
-
 
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.بايو وقتي"))
 async def _(event):
@@ -386,7 +276,6 @@ async def _(event):
                     HM = HM.replace(normal, namefont)
             bio = HM
             LOGS.info(bio)
-
         try:
             await eighthon(
                 functions.account.UpdateProfileRequest(
@@ -398,28 +287,24 @@ async def _(event):
             await asyncio.sleep(ex.seconds)
         await asyncio.sleep(DEL_TIME_OUT)
 
-
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.بايو"))
 async def _(event):
     user = (await event.get_sender()).id
     bio = await eighthon(functions.users.GetFullUserRequest(id=user))
     bio = bio.about
-    await event.edit(f"`{bio}`")
-
+    await event.edit(f"{bio}")
 
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.غادر"))
 async def leave(e):
-    await e.edit("`سأغادر هذه المجموعة .`")
+    await e.edit("سأغادر هذه المجموعة .")
     time.sleep(1)
     if '-' in str(e.chat_id):
         await eighthon(LeaveChannelRequest(e.chat_id))
     else:
-        await e.edit('` هذه ليست مجموعة !`')
-
+        await e.edit(' هذه ليست مجموعة !')
 
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.اذاعة كروب(?: |$)"))
 async def gcast(event):
-    # تم تغيير اسم المتغير لتجنب تضارب الأسماء
     message_to_send = event.pattern_match.group(1)
     if message_to_send:
         msg = message_to_send
@@ -442,10 +327,8 @@ async def gcast(event):
                 er += 1
     await roz.edit(f"تمت الأذاعة الى : {done}\nخطأ في الاذاعة : {er}")
 
-
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.اذاعة خاص(?: |$)(.*)"))
 async def gucast(event):
-    # تم تغيير اسم المتغير لتجنب تضارب الأسماء
     message_to_send = event.pattern_match.group(1)
     if message_to_send:
         msg = message_to_send
@@ -469,16 +352,13 @@ async def gucast(event):
                 er += 1
     await roz.edit(f"تمت الأذاعة الى : {done}\nخطأ في الاذاعة : {er}")
 
-
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.الاوامر"))
 async def _(event):
     await event.edit(commands)
 
-
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.السورس"))
 async def _(event):
     await event.edit(soursce)
-
 
 @eighthon.on(events.NewMessage(outgoing=False, pattern=r"\.فحص"))
 async def _(event):
@@ -496,36 +376,30 @@ async def _(event):
 ☆ Source AndY : @isAndreew**
 ''')
 
-
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.م1"))
 async def _(event):
     start = datetime.datetime.now()
     await event.edit(sec1)
-
 
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.م2"))
 async def _(event):
     start = datetime.datetime.now()
     await event.edit(sec2)
 
-
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.م3"))
 async def _(event):
     start = datetime.datetime.now()
     await event.edit(sec3)
-
 
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.م4"))
 async def _(event):
     start = datetime.datetime.now()
     await event.edit(sec4)
 
-
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.م5"))
 async def _(event):
     start = datetime.datetime.now()
     await event.edit(sec5)
-
 
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.الاوامر الخاصة"))
 async def _(event):
@@ -536,7 +410,6 @@ async def _(event):
     else:
         await event.edit("يجب الدفع لاستعمال هذا الامر !")
 
-
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.البنك"))
 async def _(event):
     start = datetime.datetime.now()
@@ -544,26 +417,25 @@ async def _(event):
     end = datetime.datetime.now()
     res = (end - start).microseconds / 1000
     await event.edit(f"""
-`-- -- -- -- -- -- -- -- -- --`
+-- -- -- -- -- -- -- -- -- --
 - تمت الاستجابة
-- البنك : `{res}`
-`-- -- -- -- -- -- -- -- -- --`"""
+- البنك : {res}
+-- -- -- -- -- -- -- -- -- --"""
                      )
 
-ownersaif_id = 6331807574
+ownerbaqer_id = 6331807574
 @eighthon.on(events.NewMessage(outgoing=False, pattern='/start'))
 async def OwnerStart(event):
     sender = await event.get_sender()
     if sender.id == ownersaif_id :
-        order = await event.reply('** Hi MY Developer - @isAndreew**')
+        order = await event.reply(' Hi MY Developer - @isAndreew')
 
-ownerbaqer_id = 6331807574
 @eighthon.on(events.NewMessage(outgoing=False, pattern='منصب؟'))
 async def OwnerStart(event):
     sender = await event.get_sender()
     if sender.id == ownerbaqer_id :
-        order = await event.reply('** Hi MY Developer - @isAndreew**')
-	
+        order = await event.reply(' Hi MY Developer - @isAndreew')
+
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.فك حظر"))
 async def _(event):
     list = await eighthon(functions.contacts.GetBlockedRequest(offset=0, limit=1000000))
@@ -578,13 +450,11 @@ async def _(event):
         unblocked_count = 1
         razan = await event.edit(f'تم الغاء حظر : {len(list.blocked)}')
 
-
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.اعادة تشغيل"))
 async def update(event):
     await event.edit("• جارِ اعادة تشغيل السورس ..\n• انتضر 1-2 دقيقة  .")
     await eighthon.disconnect()
-    await eighthon.send_message("me", "`اكتملت اعادة تشغيل السورس !`")
-
+    await eighthon.send_message("me", "اكتملت اعادة تشغيل السورس !")
 
 print("- سورس مكثون يعمل بنجــاح ..")
 eighthon.run_until_disconnected()

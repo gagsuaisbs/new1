@@ -2,27 +2,22 @@
 
 import random
 import requests
-
 import telethon
 from telethon.sync import functions
 from user_agent import generate_user_agent
-# from help import * # Removed due to missing definition
-# from config import * # Removed due to missing definition
 from threading import Thread
 import threading
 import asyncio
 from telethon import events
 import queue
 
-# Assuming these variables are defined elsewhere. If not, they need to be initialized.
-# ispay2 = ["yes"] 
-# eighthon = telethon.TelegramClient('my_session', 'API_ID', 'API_HASH')
-# tele_checker2 = "Your message here"
+# استيراد المتغيرات الأساسية من config و help
+from config import eighthon, ownersaif_id, ispay2
+from help import tele_checker2
 
 a = 'qwertyuiopassdfghjklzxcvbnm'
 b = '1234567890'
 e = 'qwertyuiopassdfghjklzxcvbnm1234567890'
-ownersaif_id = 6331807574
 
 banned = []
 try:
@@ -326,10 +321,8 @@ async def _(event):
 
 @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.ت (.*)"))
 async def _(event):
-    # This part of the code needs external variables 'ispay2' and 'que' which are not defined in the provided script.
-    # The fix assumes they exist and are correctly initialized.
     if ispay2[0] == "yes":
-        trys = 0
+        trys_local = 0
         msg = ("".join(event.text.split(maxsplit=1)[1:])).split(" ", 1)
         if msg[0] == "تلقائي":
             isauto.clear()
@@ -342,7 +335,7 @@ async def _(event):
             @eighthon.on(events.NewMessage(outgoing=True, pattern=r"\.حالة ت "))
             async def _(event):
                 if "on" in isauto:
-                    await event.reply(f"التثبيت وصل لـ({trys}) من المحاولات")
+                    await event.reply(f"التثبيت وصل لـ({trys_local}) من المحاولات")
                 elif "off" in isauto:
                     await event.reply("لايوجد تثبيت شغال !")
                 else:
@@ -377,7 +370,7 @@ async def _(event):
                 else:
                     pass
                 
-                trys += 1
+                trys_local += 1
                 await asyncio.sleep(0.1)
             
             trys = ""
@@ -403,7 +396,3 @@ async def _(event):
                 await eighthon.send_message(event.chat_id, f'''خطأ مع {username}
 الخطأ :
 {str(eee)}''')
-
-# Removed the Threads section at the end because it will not work as intended and would cause errors.
-# You cannot simply start threads on these async functions without proper management.
-

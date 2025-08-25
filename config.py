@@ -14,5 +14,4 @@ eighthon = TelegramClient(StringSession(session), API_ID, API_HASH)
 bot = TelegramClient("bot", API_ID, API_HASH).start(bot_token=token)
 ispay = ['yes']
 ispay2 = ['yes']
-# تم حذف السطر التالي لأنه كان يسبب خطأ:
-# bot.start()
+# تم حذف السطر الزائد
