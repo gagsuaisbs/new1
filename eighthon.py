@@ -450,11 +450,13 @@ async def _(event):
 
 @eighthon.on(events.NewMessage(outgoing=False, pattern=r"\.اعادة تشغيل"))
 async def update(event):
-	sender = await event.get_sender()
-    if sender.id == ownersaif_id :
-    await event.reply("• جارِ اعادة تشغيل السورس ..\n• انتضر 1-2 دقيقة  .")
-    await eighthon.disconnect()
-    await eighthon.send_message("me", "اكتملت اعادة تشغيل السورس !")
+    sender = await event.get_sender()
+    if sender.id == ownersaif_id:
+        await event.reply("• جارِ اعادة تشغيل السورس ..\n• انتضر 1-2 دقيقة  .")
+        await eighthon.disconnect()
+        # هذا الأمر لن يتم تنفيذه بعد قطع الاتصال
+        # await eighthon.send_message("me", "اكتملت اعادة تشغيل السورس !")
 
+# 4. تشغيل السكريبت
 print("- سورس مكثون يعمل بنجــاح ..")
 eighthon.run_until_disconnected()
