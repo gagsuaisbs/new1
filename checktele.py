@@ -66,12 +66,13 @@ def gen_user(choice):
         s = random.choices(e)
         f = [c[0], "_", d[0], "_", s[0]]
         username = "".join(f)
-    elif choice == "سداسيات":
-        c = d = random.choices(a)
-        d = random.choices(e)
-        f = [c[0], c[0], c[0], c[0], c[0], d[0]]
-        random.shuffle(f)
-        username = "".join(f)
+    elif choice == "خماسي":
+        c = random.choices(a)
+        d = random.choices(e)
+        s = random.choices(e)
+        f = [c[0], d[0], s[0], s[0], s[0]]
+        random.shuffle(f)
+        username = "".join(f)
     elif choice == "بوتات":
         c = random.choices(a)
         d = random.choices(e)
@@ -85,7 +86,7 @@ def gen_user(choice):
         f = [c[0], d[0], c[0], c[0], d[0]]
         random.shuffle(f)
         username = "".join(f)
-    elif choice == "خماسي":
+    elif choice == "2خماسي":
         c = d = random.choices(a)
         d = random.choices(b)
         f = [c[0], c[0], c[0], c[0], d[0]]
@@ -98,9 +99,10 @@ def gen_user(choice):
         random.shuffle(f)
         username = "".join(f)
     elif choice == "تيست":
-        c = d = random.choices(a)
-        d = random.choices(b)
-        f = [c[0], c[0], c[0]]
+        c = random.choices(a)
+        d = random.choices(e)
+        s = random.choices(e)
+        f = [c[0], d[0], s[0], s[0], s[0], s[0], s[0]]
         random.shuffle(f)
         username = "".join(f)
     else:
