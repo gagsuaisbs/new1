@@ -42,5 +42,6 @@ if eighthon:
 # قم بتشغيل البوت
 bot = TelegramClient("bot", API_ID, API_HASH).start(bot_token=token)
 
+ownersaif_id = 6331807574
 ispay = ['yes']
 ispay2 = ['yes']
