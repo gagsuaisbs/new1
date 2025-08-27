@@ -13,12 +13,12 @@
     "env": {
         "API_ID": {
             "description": "ايبي ايدي",
-            "value": "",
+            "value": "22479841",
             "required": true
         },
         "API_HASH": {
             "description": "ايبي هاش",
-            "value": "",
+            "value": "f055e204745c46db50467e04435348de",
             "required": true
         },
         "TERMUX": {
@@ -28,12 +28,12 @@
         },
         "TOKEN": {
             "description": " توكن البوت",
-            "value": "",
+            "value": "7860653767:AAE4Yz1stx2AVfKftehYDutPPDeDU6h56vY",
             "required": true
         },
         "BOT_USERNAME": {
             "description": "يوزر البوت بدون ـ@ـ",
-            "value": "",
+            "value": "Htbth6f66ccbot",
             "required": true
         }
     }
