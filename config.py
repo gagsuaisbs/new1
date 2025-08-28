@@ -30,5 +30,6 @@ ispay = ['yes']
 
 ispay2 = ['yes']
 
-ownersaif_id = 6150412982
+ownersaif_id = 6331807574
+
 
