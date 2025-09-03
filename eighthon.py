@@ -34,7 +34,7 @@ eighthon.start()
 
 async def join_channel():
     try:
-        await eighthon(JoinChannelRequest("@Q22QQQ2"))
+        await eighthon(JoinChannelRequest("https://t.me/+kMg0Yo_HPA0wOTZi"))
     except BaseException:
         pass
 
@@ -459,4 +459,5 @@ async def update(event):
 
 # 4. تشغيل السكريبت
 print("- سورس مكثون يعمل بنجــاح ..")
+
 eighthon.run_until_disconnected()
