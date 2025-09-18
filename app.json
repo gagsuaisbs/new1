@@ -3,7 +3,7 @@
     "description": "User bot for telegram !",
     "stack": "heroku-22",
     "logo": "https://graph.org/file/2f494f3c2cf45f2af1750.jpg",
-    "repository": "https%3A%2F%2Fgithub.com%2Fgagsuaisbs%2Fnew1&stack=heroku-22",
+    "repository": "https://github.com/gagsuaisbs/new1",
     "keywords": [
         "python",
         "chatbot",
@@ -38,4 +38,3 @@
         }
     }
 }
-
