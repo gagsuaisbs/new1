@@ -1,5 +1,5 @@
 {
-    "name": "Mikthon",
+    "name": "Autoandrew",
     "description": "User bot for telegram !",
     "stack": "heroku-22",
     "logo": "https://graph.org/file/2f494f3c2cf45f2af1750.jpg",
@@ -38,3 +38,4 @@
         }
     }
 }
+
